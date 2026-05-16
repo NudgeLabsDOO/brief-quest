@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { LevelCompletion, PlayerProgress } from '../types';
+import { supabase } from '../lib/supabase';
 
 interface ProgressStore {
   userId?: string;
@@ -13,6 +14,7 @@ interface ProgressStore {
   getTotalStars: () => number;
   setUserId: (userId: string) => void;
   loadFromServer: (progress: PlayerProgress) => void;
+  syncToServer: () => Promise<void>;
 }
 
 export const useProgressStore = create<ProgressStore>()(
@@ -27,7 +29,6 @@ export const useProgressStore = create<ProgressStore>()(
             c => c.scenarioId === completion.scenarioId
           );
           if (existing >= 0) {
-            // Only update if new score is better
             const prev = state.completedLevels[existing];
             if (completion.score <= prev.score) return state;
             const updated = [...state.completedLevels];
@@ -57,6 +58,22 @@ export const useProgressStore = create<ProgressStore>()(
           userId: progress.userId,
           completedLevels: progress.completedLevels,
         });
+      },
+
+      syncToServer: async () => {
+        const { userId, completedLevels } = get();
+        if (!userId) return;
+
+        const { error } = await supabase
+          .from('player_progress')
+          .upsert(
+            { user_id: userId, completed_levels: completedLevels },
+            { onConflict: 'user_id' }
+          );
+
+        if (error) {
+          console.error('[Supabase] Failed to sync progress:', error.message);
+        }
       },
     }),
     {
