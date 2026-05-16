@@ -1,21 +1,40 @@
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
 import { getScenarioById } from '../data/scenarios';
+
+function useCountUp(target: number, duration = 1200) {
+  const [value, setValue] = useState(0);
+  const raf = useRef<number | undefined>(undefined);
+
+  useEffect(() => {
+    const start = performance.now();
+    function tick(now: number) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // cubic ease-out
+      setValue(Math.round(eased * target));
+      if (progress < 1) raf.current = requestAnimationFrame(tick);
+    }
+    raf.current = requestAnimationFrame(tick);
+    return () => { if (raf.current) cancelAnimationFrame(raf.current); };
+  }, [target, duration]);
+
+  return value;
+}
 
 export function ResultScreen() {
   const { scenarioId } = useParams<{ scenarioId: string }>();
   const navigate = useNavigate();
   const { result, scenario } = useGameStore();
   const scenarioData = getScenarioById(scenarioId ?? '');
+  const animatedScore = useCountUp(result?.totalScore ?? 0);
 
   if (!result || !scenario || !scenarioData) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4 p-4">
         <p className="text-gray-500">No result found.</p>
-        <button
-          onClick={() => navigate('/')}
-          className="text-indigo-600 underline"
-        >
+        <button onClick={() => navigate('/')} className="text-indigo-600 underline">
           Back to menu
         </button>
       </div>
@@ -41,7 +60,10 @@ export function ResultScreen() {
       ? { label: 'Speed bonus', score: result.breakdown.speedBonus, emoji: '⚡' }
       : null,
     result.breakdown.precisionBonus > 0
-      ? { label: 'Precision bonus', score: result.breakdown.precisionBonus, emoji: '🎯' }
+      ? { label: 'Precision bonus', score: result.breakdown.precisionBonus, emoji: '✨' }
+      : null,
+    result.breakdown.confidenceBonus > 0
+      ? { label: 'Confidence bonus', score: result.breakdown.confidenceBonus, emoji: '💪' }
       : null,
     result.breakdown.undoPenalty > 0
       ? { label: 'Undo penalty', score: -result.breakdown.undoPenalty, emoji: '↩' }
@@ -53,32 +75,74 @@ export function ResultScreen() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 flex flex-col">
-      {/* Stars + score */}
+      {/* Stars + animated score */}
       <div className="text-center py-8 px-4">
-        <div className="text-4xl mb-2">
+        <motion.div
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.1, type: 'spring', stiffness: 200, damping: 14 }}
+          className="text-4xl mb-2"
+        >
           {[1, 2, 3].map(s => (
-            <span key={s} className={s <= result.starsEarned ? 'text-yellow-400' : 'text-gray-200'}>
+            <motion.span
+              key={s}
+              initial={{ scale: 0, rotate: -20 }}
+              animate={{ scale: s <= result.starsEarned ? 1 : 0.7, rotate: 0 }}
+              transition={{ delay: 0.2 + s * 0.1, type: 'spring', stiffness: 300 }}
+              className={`inline-block ${s <= result.starsEarned ? 'text-yellow-400' : 'text-gray-200'}`}
+            >
               ⭐
-            </span>
+            </motion.span>
           ))}
-        </div>
-        <h1 className="text-2xl font-bold text-indigo-900">{starLabel}</h1>
-        <p className="text-4xl font-bold text-indigo-600 mt-2">
-          {result.totalScore} <span className="text-lg text-gray-400">/ {result.maxScore}</span>
-        </p>
-        {result.perfectBrief && (
-          <div className="mt-2 inline-block bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1 rounded-full">
-            🏆 Perfect Brief!
-          </div>
-        )}
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="text-2xl font-bold text-indigo-900"
+        >
+          {starLabel}
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="text-4xl font-bold text-indigo-600 mt-2 tabular-nums"
+        >
+          {animatedScore}{' '}
+          <span className="text-lg text-gray-400">/ {result.maxScore}</span>
+        </motion.p>
+
+        <AnimatePresence>
+          {result.perfectBrief && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 1.2, type: 'spring', stiffness: 200 }}
+              className="mt-2 inline-block bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1 rounded-full"
+            >
+              🏆 Perfect Brief!
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Breakdown */}
       <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3 max-w-lg mx-auto w-full">
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          {breakdownItems.map(item => (
-            <div
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="bg-white rounded-xl border border-gray-200 overflow-hidden"
+        >
+          {breakdownItems.map((item, i) => (
+            <motion.div
               key={item.label}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8 + i * 0.05 }}
               className="flex items-center justify-between px-4 py-3 border-b border-gray-100 last:border-0"
             >
               <div className="text-sm text-gray-700">
@@ -88,21 +152,33 @@ export function ResultScreen() {
               <span className={`font-semibold text-sm ${item.score >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                 {item.score >= 0 ? '+' : ''}{item.score}
               </span>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Teaching moment */}
-        <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+          className="bg-indigo-50 border border-indigo-200 rounded-xl p-4"
+        >
           <div className="text-xs font-semibold text-indigo-600 uppercase tracking-wider mb-1">💡 Key Lesson</div>
           <p className="text-sm text-indigo-900 leading-relaxed">{scenarioData.teachingMoment}</p>
-        </div>
+        </motion.div>
 
-        {/* Per-requirement breakdown */}
+        {/* Incorrect placements */}
         {result.incorrectPlacements.length > 0 && (
-          <div className="bg-white rounded-xl border border-red-100 overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1 }}
+            className="bg-white rounded-xl border border-red-100 overflow-hidden"
+          >
             <div className="px-4 py-3 bg-red-50 border-b border-red-100">
-              <div className="text-xs font-semibold text-red-600 uppercase tracking-wider">Missed requirements</div>
+              <div className="text-xs font-semibold text-red-600 uppercase tracking-wider">
+                Missed requirements ({result.incorrectPlacements.length})
+              </div>
             </div>
             {result.incorrectPlacements.map(reqId => {
               const req = scenarioData.requirements.find(r => r.id === reqId);
@@ -117,7 +193,7 @@ export function ResultScreen() {
                 </div>
               );
             })}
-          </div>
+          </motion.div>
         )}
       </div>
 
