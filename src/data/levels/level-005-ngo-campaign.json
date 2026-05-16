@@ -1,0 +1,99 @@
+{
+  "id": "level-005-ngo-campaign",
+  "level": 5,
+  "actNumber": 2,
+  "title": "NGO Awareness Campaign",
+  "context": "A climate change NGO needs an awareness campaign. The brief was written by committee. It has everything wrong with it — and some missing information you'll need to flag.",
+  "difficulty": "hard",
+  "activeMechanics": ["triage", "contradictions", "goal_kpi", "missing_info"],
+  "requirements": [
+    {
+      "id": "r1",
+      "text": "The campaign must create urgency about the climate crisis",
+      "correctBucket": "must",
+      "explanation": "Creating urgency is the core purpose of a climate awareness campaign."
+    },
+    {
+      "id": "r2",
+      "text": "But don't make people feel scared or overwhelmed — keep it positive",
+      "correctBucket": "remove",
+      "contradicts": ["r1"],
+      "explanation": "Creating urgency and avoiding fear are contradictory emotional directions. Research shows some level of concern is needed to motivate action."
+    },
+    {
+      "id": "r3",
+      "text": "Use humour to make the message more shareable",
+      "correctBucket": "should",
+      "explanation": "Humour can work for awareness campaigns but needs careful handling for serious topics."
+    },
+    {
+      "id": "r4",
+      "text": "The tone must be serious and gravely serious at all times",
+      "correctBucket": "remove",
+      "contradicts": ["r3"],
+      "explanation": "Humorous and gravely serious are contradictory tones — choose one."
+    },
+    {
+      "id": "r5",
+      "text": "Target young people (18–30) on social platforms",
+      "correctBucket": "must",
+      "explanation": "Young audiences are the primary target for climate awareness — they are both affected and motivated to act."
+    },
+    {
+      "id": "r6",
+      "text": "Also target government policymakers through official channels",
+      "correctBucket": "should",
+      "explanation": "Policy influence is a valid secondary goal but requires a different approach, budget, and content than social campaigns."
+    },
+    {
+      "id": "r7",
+      "text": "Campaign budget: £500 total",
+      "correctBucket": "must",
+      "isMissingInfo": false,
+      "explanation": "£500 is extremely limited — this severely constrains channel choices and forces a purely organic approach."
+    },
+    {
+      "id": "r8",
+      "text": "Timeline: complete before the next major political event",
+      "correctBucket": "remove",
+      "isMissingInfo": true,
+      "explanation": "\"Before the next major political event\" is not a real deadline — it's missing information. Which event? Which date?"
+    },
+    {
+      "id": "r9",
+      "text": "Goal: drive actual behaviour change in daily habits",
+      "correctBucket": "must",
+      "explanation": "Concrete behaviour change is a valid goal, though hard to measure — needs a specific KPI."
+    },
+    {
+      "id": "r10",
+      "text": "Make it go viral",
+      "correctBucket": "remove",
+      "isMissingInfo": false,
+      "explanation": "\"Make it go viral\" is not a requirement — it's a wish. Virality cannot be engineered on demand, especially on a £500 budget."
+    }
+  ],
+  "goals": [
+    { "id": "g1", "text": "Drive measurable behaviour change in daily habits" },
+    { "id": "g2", "text": "Build campaign awareness among 18–30 year olds" }
+  ],
+  "kpis": [
+    { "id": "k1", "text": "Number of pledge sign-ups or commitment actions", "goalId": "g1" },
+    { "id": "k2", "text": "Campaign reach and video views", "goalId": "g2" },
+    { "id": "k3", "text": "Website traffic during campaign period", "goalId": "g2" }
+  ],
+  "rubric": {
+    "bucketScorePerCorrect": 20,
+    "contradictionBonus": 50,
+    "goalKpiMatchBonus": 50,
+    "audienceMatchBonus": 0,
+    "missingInfoBonus": 50,
+    "bucketPenaltyPerWrong": 15,
+    "passingScore": 300,
+    "maxScore": 1000
+  },
+  "unlockCondition": {
+    "requiredLevelIds": ["level-004-hotel-rebrand"]
+  },
+  "teachingMoment": "Vague timelines like 'before the next event' without a specific date are missing information. Always flag these — an unspecified deadline is no deadline at all."
+}

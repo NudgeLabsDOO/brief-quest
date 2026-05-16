@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: #f8f7ff;
+  min-height: 100svh;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+/* Card drag animations */
+.requirement-card {
+  touch-action: none;
+  user-select: none;
+}
+
+.requirement-card.dragging {
+  opacity: 0.5;
+}

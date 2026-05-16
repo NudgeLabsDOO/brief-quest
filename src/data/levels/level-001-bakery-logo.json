@@ -1,0 +1,63 @@
+{
+  "id": "level-001-bakery-logo",
+  "level": 1,
+  "actNumber": 1,
+  "title": "Bakery Logo",
+  "context": "Sweet Crumb Bakery needs a new logo. The client sent over this brief. Something feels off — can you spot the problems?",
+  "difficulty": "easy",
+  "activeMechanics": ["triage", "contradictions"],
+  "requirements": [
+    {
+      "id": "r1",
+      "text": "Design a logo that feels modern and contemporary",
+      "correctBucket": "must",
+      "explanation": "Brand direction is a core requirement the designer must follow."
+    },
+    {
+      "id": "r2",
+      "text": "But also traditional and timeless — like grandma's kitchen",
+      "correctBucket": "remove",
+      "contradicts": ["r1"],
+      "explanation": "\"Modern\" and \"traditional\" are contradictory directions. This pair needs to be resolved before the design can proceed."
+    },
+    {
+      "id": "r3",
+      "text": "Use warm, bright colours like yellow and orange",
+      "correctBucket": "must",
+      "explanation": "Colour direction is a key brand decision that guides the design."
+    },
+    {
+      "id": "r4",
+      "text": "The logo must work in black and white for newspaper ads",
+      "correctBucket": "remove",
+      "contradicts": ["r3"],
+      "explanation": "Specifying bright colours while requiring black-and-white reproduction is contradictory — bright colours become meaningless in monochrome."
+    },
+    {
+      "id": "r5",
+      "text": "Include the bakery's founding year (1987) in the logo",
+      "correctBucket": "could",
+      "explanation": "Heritage detail is a nice addition but not essential to brand identity."
+    },
+    {
+      "id": "r6",
+      "text": "The logo should work at small sizes (favicon, social media profile)",
+      "correctBucket": "must",
+      "explanation": "Logo versatility across sizes is a technical requirement that must be designed for from the start."
+    }
+  ],
+  "rubric": {
+    "bucketScorePerCorrect": 25,
+    "contradictionBonus": 50,
+    "goalKpiMatchBonus": 0,
+    "audienceMatchBonus": 0,
+    "missingInfoBonus": 0,
+    "bucketPenaltyPerWrong": 15,
+    "passingScore": 200,
+    "maxScore": 1000
+  },
+  "unlockCondition": {
+    "requiredLevelIds": ["level-000-tutorial"]
+  },
+  "teachingMoment": "Contradictory visual requirements (\"bright colours\" vs \"black and white only\") are the most common first-brief failure. Always spot and flag these before starting work."
+}

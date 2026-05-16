@@ -1,0 +1,55 @@
+{
+  "id": "level-000-tutorial",
+  "level": 0,
+  "actNumber": 0,
+  "title": "Your First Brief",
+  "context": "Welcome to Brief Quest! A client has sent their first brief for a new website. Let's sort through what's really needed, what's nice to have, and what's just noise.",
+  "difficulty": "intro",
+  "activeMechanics": ["triage"],
+  "requirements": [
+    {
+      "id": "r1",
+      "text": "The website must load in under 3 seconds",
+      "correctBucket": "must",
+      "explanation": "Performance is a hard requirement — slow sites lose visitors and affect SEO."
+    },
+    {
+      "id": "r2",
+      "text": "It would be nice to have an animated hero banner",
+      "correctBucket": "could",
+      "explanation": "Animation is a nice-to-have enhancement, not a core need."
+    },
+    {
+      "id": "r3",
+      "text": "The site needs to work on mobile devices",
+      "correctBucket": "must",
+      "explanation": "Over 60% of web traffic is mobile. This is non-negotiable."
+    },
+    {
+      "id": "r4",
+      "text": "Include a contact form so visitors can reach us",
+      "correctBucket": "should",
+      "explanation": "A contact form is strongly recommended for lead generation, but not strictly required."
+    },
+    {
+      "id": "r5",
+      "text": "Maybe add a blog section at some point",
+      "correctBucket": "could",
+      "explanation": "A blog is a nice future enhancement — low priority for launch."
+    }
+  ],
+  "rubric": {
+    "bucketScorePerCorrect": 40,
+    "contradictionBonus": 0,
+    "goalKpiMatchBonus": 0,
+    "audienceMatchBonus": 0,
+    "missingInfoBonus": 0,
+    "bucketPenaltyPerWrong": 20,
+    "passingScore": 100,
+    "maxScore": 200
+  },
+  "unlockCondition": {
+    "requiredLevelIds": []
+  },
+  "teachingMoment": "Sorting requirements by priority is the foundation of a good brief. 'Must' items are non-negotiable, 'Should' items add real value, and 'Could' items are wishlist items."
+}

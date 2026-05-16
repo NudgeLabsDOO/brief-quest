@@ -1,0 +1,75 @@
+{
+  "id": "level-002-startup-launch",
+  "level": 2,
+  "actNumber": 1,
+  "title": "Startup Website Launch",
+  "context": "A fintech startup is launching their MVP website. They've sent over a requirements doc but the PM has clearly been talking to too many stakeholders.",
+  "difficulty": "easy",
+  "activeMechanics": ["triage", "contradictions"],
+  "requirements": [
+    {
+      "id": "r1",
+      "text": "Landing page must explain the product clearly in under 30 seconds",
+      "correctBucket": "must",
+      "explanation": "Clarity and speed of understanding is essential for a landing page — users decide to stay or leave within seconds."
+    },
+    {
+      "id": "r2",
+      "text": "Include comprehensive detailed documentation of all features",
+      "correctBucket": "should",
+      "explanation": "Detailed docs are important but live on separate pages — not the landing page where brevity is key."
+    },
+    {
+      "id": "r3",
+      "text": "The design should feel trustworthy and professional",
+      "correctBucket": "must",
+      "explanation": "Trust is critical for fintech — users will not enter financial details on a site that feels sketchy."
+    },
+    {
+      "id": "r4",
+      "text": "Use bold, disruptive design — break conventions to stand out",
+      "correctBucket": "remove",
+      "contradicts": ["r3"],
+      "explanation": "\"Trustworthy and professional\" directly conflicts with \"break conventions\" — especially for a financial product."
+    },
+    {
+      "id": "r5",
+      "text": "Include a sign-up form above the fold",
+      "correctBucket": "must",
+      "explanation": "The primary conversion action must be visible immediately — this is the whole point of a launch page."
+    },
+    {
+      "id": "r6",
+      "text": "No sign-up wall — let people explore freely first",
+      "correctBucket": "remove",
+      "contradicts": ["r5"],
+      "explanation": "Requiring sign-up above the fold and having no sign-up wall are directly contradictory conversion strategies."
+    },
+    {
+      "id": "r7",
+      "text": "Add social proof: testimonials or logos of early users",
+      "correctBucket": "should",
+      "explanation": "Social proof significantly increases conversion but requires existing customer relationships."
+    },
+    {
+      "id": "r8",
+      "text": "Make the page accessible for screen readers (WCAG AA)",
+      "correctBucket": "must",
+      "explanation": "Accessibility is a legal requirement in many markets and a moral imperative."
+    }
+  ],
+  "rubric": {
+    "bucketScorePerCorrect": 25,
+    "contradictionBonus": 50,
+    "goalKpiMatchBonus": 0,
+    "audienceMatchBonus": 0,
+    "missingInfoBonus": 0,
+    "bucketPenaltyPerWrong": 15,
+    "passingScore": 200,
+    "maxScore": 1000
+  },
+  "unlockCondition": {
+    "requiredLevelIds": ["level-001-bakery-logo"]
+  },
+  "teachingMoment": "Conversion strategy contradictions (\"sign up immediately\" vs \"no sign-up wall\") are common when multiple stakeholders add requirements without coordinating."
+}

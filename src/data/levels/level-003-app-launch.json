@@ -1,0 +1,75 @@
+{
+  "id": "level-003-app-launch",
+  "level": 3,
+  "actNumber": 1,
+  "title": "App Launch Campaign",
+  "context": "Launch the new FitPulse fitness app. Multiple stakeholders have contributed requirements and the brief is a mess. Sort it out.",
+  "difficulty": "easy",
+  "activeMechanics": ["triage", "contradictions"],
+  "requirements": [
+    {
+      "id": "r1",
+      "text": "Drive viral organic growth through social media",
+      "correctBucket": "must",
+      "explanation": "Organic growth is the primary channel strategy — it's the core requirement."
+    },
+    {
+      "id": "r2",
+      "text": "Invest heavily in paid advertising on all major platforms",
+      "correctBucket": "remove",
+      "contradicts": ["r1"],
+      "explanation": "Organic-first and paid-first are fundamentally different strategies requiring different budgets, timelines, and creative."
+    },
+    {
+      "id": "r3",
+      "text": "Target audience: 18–25 year old fitness enthusiasts",
+      "correctBucket": "must",
+      "explanation": "Clear audience definition is essential — it drives all creative and channel decisions."
+    },
+    {
+      "id": "r4",
+      "text": "Also target 45–60 year olds who rarely use smartphones",
+      "correctBucket": "remove",
+      "contradicts": ["r3"],
+      "explanation": "18–25 digital natives and 45–60 low-smartphone users need completely different messages, channels, and UX — you can't serve both with one launch campaign."
+    },
+    {
+      "id": "r5",
+      "text": "Campaign should feel inspiring and aspirational",
+      "correctBucket": "must",
+      "explanation": "Aspirational tone is appropriate for a fitness app aimed at younger users."
+    },
+    {
+      "id": "r6",
+      "text": "Focus on data, science, and clinical proof points",
+      "correctBucket": "should",
+      "explanation": "Scientific credibility is valuable but secondary to the aspirational hook — it can support the main message."
+    },
+    {
+      "id": "r7",
+      "text": "KPI: 10,000 downloads in the first month",
+      "correctBucket": "must",
+      "explanation": "A clear, measurable download target is a valid KPI for an app launch."
+    },
+    {
+      "id": "r8",
+      "text": "Include an affiliate marketing programme from day one",
+      "correctBucket": "could",
+      "explanation": "Affiliate programmes can drive growth but require significant setup — better as a phase 2 initiative."
+    }
+  ],
+  "rubric": {
+    "bucketScorePerCorrect": 25,
+    "contradictionBonus": 50,
+    "goalKpiMatchBonus": 0,
+    "audienceMatchBonus": 0,
+    "missingInfoBonus": 0,
+    "bucketPenaltyPerWrong": 15,
+    "passingScore": 250,
+    "maxScore": 1000
+  },
+  "unlockCondition": {
+    "requiredLevelIds": ["level-002-startup-launch"]
+  },
+  "teachingMoment": "Incompatible audience segments are the most common brief failure — trying to speak to everyone means speaking to no one. Define one primary audience."
+}

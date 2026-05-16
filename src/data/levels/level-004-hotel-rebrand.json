@@ -1,0 +1,84 @@
+{
+  "id": "level-004-hotel-rebrand",
+  "level": 4,
+  "actNumber": 1,
+  "title": "Luxury Hotel Rebrand",
+  "context": "The Meridian hotel group wants a rebrand. You'll need to sort requirements AND match their business goals to the right KPIs.",
+  "difficulty": "medium",
+  "activeMechanics": ["triage", "contradictions", "goal_kpi"],
+  "requirements": [
+    {
+      "id": "r1",
+      "text": "Rebrand as accessible and affordable for budget-conscious travellers",
+      "correctBucket": "remove",
+      "contradicts": ["r2"],
+      "explanation": "Affordable and 5-star premium are fundamentally incompatible brand positions — you cannot credibly be both."
+    },
+    {
+      "id": "r2",
+      "text": "Maintain the 5-star premium positioning and luxury experience",
+      "correctBucket": "must",
+      "explanation": "The core brand equity is in the premium positioning — this is the foundation."
+    },
+    {
+      "id": "r3",
+      "text": "Create a new brand visual identity (logo, colour palette, typography)",
+      "correctBucket": "must",
+      "explanation": "A visual identity refresh is the core deliverable of a rebrand."
+    },
+    {
+      "id": "r4",
+      "text": "Use TikTok as a primary marketing channel",
+      "correctBucket": "should",
+      "explanation": "TikTok luxury travel content can work — several luxury brands have found success there."
+    },
+    {
+      "id": "r5",
+      "text": "Target both business travellers and budget backpackers equally",
+      "correctBucket": "remove",
+      "contradicts": ["r2"],
+      "explanation": "Business travellers and budget backpackers have opposing needs — targeting both would dilute the premium positioning."
+    },
+    {
+      "id": "r6",
+      "text": "Campaign message: 'Where luxury meets value'",
+      "correctBucket": "could",
+      "explanation": "This tagline attempts to bridge contradictory positions — it's a placeholder until the brand contradiction is resolved."
+    },
+    {
+      "id": "r7",
+      "text": "Update all digital touchpoints: website, app, booking flow",
+      "correctBucket": "must",
+      "explanation": "Digital touchpoints are core to the guest experience and must reflect the rebrand."
+    },
+    {
+      "id": "r8",
+      "text": "Train all front-of-house staff on the new brand standards",
+      "correctBucket": "should",
+      "explanation": "Brand standards training is essential for consistency but can follow the visual rollout."
+    }
+  ],
+  "goals": [
+    { "id": "g1", "text": "Increase direct bookings by 20%" },
+    { "id": "g2", "text": "Improve brand perception among high-net-worth individuals" }
+  ],
+  "kpis": [
+    { "id": "k1", "text": "Revenue per available room (RevPAR) increase of 15%", "goalId": "g1" },
+    { "id": "k2", "text": "Brand sentiment score in luxury travel surveys", "goalId": "g2" },
+    { "id": "k3", "text": "Social media likes and follower count", "goalId": "g2" }
+  ],
+  "rubric": {
+    "bucketScorePerCorrect": 25,
+    "contradictionBonus": 50,
+    "goalKpiMatchBonus": 50,
+    "audienceMatchBonus": 0,
+    "missingInfoBonus": 0,
+    "bucketPenaltyPerWrong": 15,
+    "passingScore": 300,
+    "maxScore": 1000
+  },
+  "unlockCondition": {
+    "requiredLevelIds": ["level-003-app-launch"]
+  },
+  "teachingMoment": "Vanity metrics like social media likes don't connect to business goals like bookings. Always tie KPIs directly to the business outcome they measure."
+}
