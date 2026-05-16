@@ -48,7 +48,7 @@ export function GameScreen() {
     submitBrief,
   } = useGameStore();
 
-  const { recordCompletion } = useProgressStore();
+  const { recordCompletion, syncToServer } = useProgressStore();
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -109,6 +109,9 @@ export function GameScreen() {
       starsEarned: result.starsEarned,
       completedAt: new Date().toISOString(),
     });
+
+    // Fire-and-forget: sync to Supabase if user is authenticated
+    syncToServer().catch(err => console.error('[Supabase] Sync failed:', err));
 
     navigate(`/game/${scenario.id}/result`);
   }

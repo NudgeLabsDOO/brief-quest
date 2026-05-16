@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { SCENARIOS } from '../data/scenarios';
 import { useProgressStore } from '../store/progressStore';
+import { useAuthStore } from '../store/authStore';
 
 const ACT_LABELS: Record<number, string> = {
   0: 'Tutorial',
@@ -10,20 +11,47 @@ const ACT_LABELS: Record<number, string> = {
 
 export function LevelSelectScreen() {
   const navigate = useNavigate();
+  const { user, logout, loading } = useAuthStore();
   const { isLevelCompleted, getLevelCompletion, getTotalStars } = useProgressStore();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/auth');
+    } catch (err) {
+      console.error('Logout failed:', err);
+    }
+  };
 
   const acts = [0, 1, 2];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 p-4">
-      {/* Header */}
-      <div className="text-center mb-6 pt-4">
-        <h1 className="text-3xl font-bold text-indigo-900">Brief Quest</h1>
-        <p className="text-indigo-600 text-sm mt-1">
-          Can you fix the brief? ⭐ {getTotalStars()} total stars
-        </p>
+      {/* Header with user info */}
+      <div className="flex items-center justify-between mb-6 pt-4">
+        <div className="text-center flex-1">
+          <h1 className="text-3xl font-bold text-indigo-900">Brief Quest</h1>
+          <p className="text-indigo-600 text-sm mt-1">
+            Can you fix the brief? ⭐ {getTotalStars()} total stars
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          {user && (
+            <div className="text-right text-sm">
+              <p className="text-gray-700 font-medium">{user.email}</p>
+              <button
+                onClick={handleLogout}
+                disabled={loading}
+                className="text-indigo-600 hover:text-indigo-700 text-xs mt-1 disabled:opacity-50"
+              >
+                Sign out
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
+      {/* Level sections */}
       {acts.map(actNum => {
         const levels = SCENARIOS.filter(s => s.actNumber === actNum);
         if (levels.length === 0) return null;
