@@ -112,7 +112,7 @@ export function evaluateBrief(input: EvaluationInput): EvaluationResult {
   const hintPenalty = hintCount * 15;
 
   // 7. Bonus multipliers
-  let rawScore = bucketScore + contradictionScore + goalKpiScore + audienceScore + missingInfoScore - undoPenalty - hintPenalty;
+  const rawScore = bucketScore + contradictionScore + goalKpiScore + audienceScore + missingInfoScore - undoPenalty - hintPenalty;
 
   let speedBonus = 0;
   let precisionBonus = 0;

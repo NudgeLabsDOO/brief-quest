@@ -12,7 +12,6 @@ import { z } from 'zod';
 // Zod schema mirroring src/types/index.ts
 // ---------------------------------------------------------------------------
 
-const BucketTypeSchema = z.enum(['must', 'should', 'could', 'remove', 'pool']);
 const CorrectBucketSchema = z.enum(['must', 'should', 'could', 'remove']);
 const DifficultySchema = z.enum(['intro', 'easy', 'medium', 'hard']);
 const MechanicTypeSchema = z.enum([
